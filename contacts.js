@@ -1,6 +1,6 @@
 import fs from "fs/promises";
 import path from "path";
-import { validateContact } from "./utils/validateData.js";
+// import { validateContact } from "./utils/validateData.js";
 
 const contactsPath = path.resolve("db", "contacts.json");
 
@@ -43,10 +43,10 @@ export async function removeContact(contactId) {
 export async function addContact(name, email, phone) {
   try {
     const newContact = { name, email, phone };
-    const { error } = validateContact(newContact);
-    if (error) {
-      throw new Error(`Invalid contact data: ${error.message}`);
-    }
+    // const { error } = validateContact(newContact);
+    // if (error) {
+    //   throw new Error(`Invalid contact data: ${error.message}`);
+    // }
 
     const contacts = await listContacts();
     const id = generateUniqueId(contacts);

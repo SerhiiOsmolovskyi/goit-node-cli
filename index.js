@@ -21,10 +21,13 @@ async function invokeAction({ action, id, name, email, phone }) {
   try {
     switch (action) {
       case "list":
-        const contacts = await listContacts();
-        console.table(contacts);
+        try {
+          const contacts = await listContacts();
+          console.table(contacts);
+        } catch (error) {
+          console.log("Error reading contacts:", error);
+        }
         break;
-
       case "get":
         if (!id) {
           console.error("Incorrect id!");
@@ -53,9 +56,8 @@ async function invokeAction({ action, id, name, email, phone }) {
           return;
         }
         const removedContact = await removeContact(id);
-        if (removedContact) {
-          console.log("Removed contact:", removedContact);
-        } else {
+        console.log("Removed contact:", removedContact);
+        if (!removedContact) {
           console.log("Contact with id", id, "has not found.");
         }
         break;
